@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: Apache-2.0
+
 #![no_std]
 
 pub fn syscall(id: usize, args: [usize; 3]) -> usize {

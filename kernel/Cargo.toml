@@ -3,6 +3,7 @@ name = "kernel"
 version.workspace = true
 edition.workspace = true
 authors.workspace = true
+license = "MPL-2.0"
 
 [dependencies]
 riscv = "0.11.1"
