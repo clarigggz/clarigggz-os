@@ -1,0 +1,8 @@
+[package]
+name = "bootloader"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+
+[dependencies]
+riscv = "0.11.1"

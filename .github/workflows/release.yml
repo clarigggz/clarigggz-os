@@ -1,0 +1,29 @@
+name: Clarigggz OS Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: riscv64gc-unknown-none-elf
+          
+      - name: Build All
+        run: cargo run -p xtask -- build
+        
+      - name: Package .cg
+        run: cargo run -p xtask -- dist
+        
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: clarigggz-firmware
+          path: target/release/*.cg

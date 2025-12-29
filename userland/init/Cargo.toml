@@ -1,0 +1,8 @@
+[package]
+name = "init"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+
+[dependencies]
+clarigggz-abi = { path = "../lib-abi" }

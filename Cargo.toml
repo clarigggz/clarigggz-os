@@ -1,14 +1,19 @@
-[package]
-name = "clarigggz-os"
+[workspace]
+resolver = "2"
+members = [
+    "kernel",
+    "drivers",
+    "bootloader",
+    "userland/lib-abi",
+    "userland/init",
+    "servers/vfs",
+    "xtask",
+]
+
+[workspace.package]
 version = "0.1.0"
 edition = "2024"
-license = "Apache-2.0"
-
-[dependencies]
-riscv = "0.11.1"
-buddy_system_allocator = "0.9.1"
-lazy_static = { version = "1.4.0", features = ["spin_no_std"] }
-spin = "0.9.8"
+authors = ["Clarigggz Team"]
 
 [profile.dev]
 panic = "abort"

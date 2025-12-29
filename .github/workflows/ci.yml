@@ -1,0 +1,24 @@
+name: Clarigggz OS CI
+
+on:
+  push:
+    branches: [ main, staging ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: riscv64gc-unknown-none-elf
+          
+      - name: Build Kernel
+        run: cargo build -p kernel --target riscv64gc-unknown-none-elf
+        
+      - name: Build Drivers
+        run: cargo build -p drivers --target riscv64gc-unknown-none-elf

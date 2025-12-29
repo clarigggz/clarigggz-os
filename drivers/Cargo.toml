@@ -1,0 +1,8 @@
+[package]
+name = "drivers"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+
+[dependencies]
+# Drivers will depend on kernel abstractions later
