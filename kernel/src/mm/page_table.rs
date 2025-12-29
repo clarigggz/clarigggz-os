@@ -4,6 +4,7 @@ use super::address::{PhysPageNum, VirtPageNum};
 use bitflags::*;
 
 bitflags! {
+    #[derive(Copy, Clone, Debug, PartialEq, Eq)]
     pub struct PTEFlags: u8 {
         const V = 1 << 0;
         const R = 1 << 1;

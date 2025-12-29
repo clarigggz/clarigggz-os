@@ -33,7 +33,7 @@ impl TaskManager {
         
         // Switch to task's page table
         unsafe {
-            riscv::register::satp::write(task.memory_set.token());
+            riscv::register::satp::write(task.memory_set.page_table.token());
             core::arch::asm!("sfence.vma");
         }
 
@@ -70,7 +70,7 @@ pub fn suspend_current_and_run_next() {
 
     let current_cx_ptr = &manager.tasks[current].context as *const TaskContext;
     let next_cx_ptr = &manager.tasks[next].context as *const TaskContext;
-    let next_token = manager.tasks[next].memory_set.token();
+    let next_token = manager.tasks[next].memory_set.page_table.token();
 
     drop(manager);
 

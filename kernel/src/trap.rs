@@ -1,7 +1,5 @@
 // SPDX-License-Identifier: MPL-2.0
 
-use core::arch::global_asm;
-use riscv::register::{stvec, sstatus, scause, stval, sepc};
 use crate::println;
 use crate::ipc::{IPC, Message};
 use crate::task;

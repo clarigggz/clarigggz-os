@@ -18,6 +18,9 @@ const PAGE_SIZE_BITS: usize = 12;
 impl From<usize> for PhysAddr {
     fn from(v: usize) -> Self { Self(v) }
 }
+impl From<usize> for VirtAddr {
+    fn from(v: usize) -> Self { Self(v) }
+}
 impl From<usize> for PhysPageNum {
     fn from(v: usize) -> Self { Self(v) }
 }

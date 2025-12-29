@@ -8,7 +8,7 @@ mod memory_set;
 pub use address::{PhysAddr, PhysPageNum, VirtAddr, VirtPageNum};
 pub use page_table::{PageTableEntry, PTEFlags};
 pub use frame_allocator::{frame_alloc, frame_dealloc};
-pub use memory_set::PageTable;
+pub use memory_set::{PageTable, MemorySet};
 
 pub fn init() {
     // Initialize memory management
