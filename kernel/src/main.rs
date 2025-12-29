@@ -8,6 +8,8 @@ extern crate alloc;
 mod console;
 mod ipc;
 mod trap;
+mod task;
+mod mm;
 
 use core::arch::global_asm;
 use core::panic::PanicInfo;
