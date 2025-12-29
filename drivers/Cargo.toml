@@ -6,4 +6,6 @@ authors.workspace = true
 license = "Apache-2.0"
 
 [dependencies]
+hal = { path = "../hal" }
+volatile = "0.4.6"
 # Drivers will depend on kernel abstractions later
