@@ -18,7 +18,7 @@ impl TaskContext {
     }
 
     pub fn goto_trap_return(kstack_ptr: usize) -> Self {
-        extern "C" {
+        unsafe extern "C" {
             fn __restore();
         }
         Self {

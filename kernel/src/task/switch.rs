@@ -5,7 +5,7 @@ use super::TaskContext;
 
 global_asm!(include_str!("switch.asm"));
 
-extern "C" {
+unsafe extern "C" {
     pub fn __switch(
         current_task_cx_ptr: *const TaskContext,
         next_task_cx_ptr: *const TaskContext

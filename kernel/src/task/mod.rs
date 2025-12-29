@@ -30,6 +30,13 @@ impl TaskManager {
     pub fn run_first_task(&mut self) -> ! {
         let task = &mut self.tasks[0];
         task.status = TaskStatus::Running;
+        
+        // Switch to task's page table
+        unsafe {
+            riscv::register::satp::write(task.memory_set.token());
+            core::arch::asm!("sfence.vma");
+        }
+
         let next_task_cx_ptr = &task.context as *const TaskContext;
         let _unused = TaskContext::zero();
         unsafe {
@@ -48,4 +55,28 @@ lazy_static! {
 
 pub fn run_first_task() -> ! {
     TASK_MANAGER.lock().run_first_task();
+}
+
+pub fn suspend_current_and_run_next() {
+    let mut manager = TASK_MANAGER.lock();
+    let current = manager.current_task;
+    let next = (current + 1) % manager.tasks.len();
+    
+    if current == next { return; }
+
+    manager.tasks[current].status = TaskStatus::Ready;
+    manager.tasks[next].status = TaskStatus::Running;
+    manager.current_task = next;
+
+    let current_cx_ptr = &manager.tasks[current].context as *const TaskContext;
+    let next_cx_ptr = &manager.tasks[next].context as *const TaskContext;
+    let next_token = manager.tasks[next].memory_set.token();
+
+    drop(manager);
+
+    unsafe {
+        riscv::register::satp::write(next_token);
+        core::arch::asm!("sfence.vma");
+        switch::__switch(current_cx_ptr, next_cx_ptr);
+    }
 }

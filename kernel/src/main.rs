@@ -40,7 +40,10 @@ pub extern "C" fn rust_main() -> ! {
     println!("Architecture: RISC-V 64-bit");
     println!("Target: RV64GCV");
 
+    mm::init();
     trap::init();
     
+    // For now, we don't have a loader, so we just loop
+    // In the next step, we'll implement a simple ELF loader
     loop {}
 }

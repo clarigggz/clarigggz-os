@@ -4,6 +4,7 @@ use core::arch::global_asm;
 use riscv::register::{stvec, sstatus, scause, stval, sepc};
 use crate::println;
 use crate::ipc::{IPC, Message};
+use crate::task;
 use alloc::vec;
 
 #[repr(C)]
@@ -55,6 +56,10 @@ pub extern "C" fn trap_handler(cx: &mut TrapContext) -> &mut TrapContext {
                     } else {
                         cx.x[10] = usize::MAX; // no message
                     }
+                }
+                3 => { // YIELD
+                    task::suspend_current_and_run_next();
+                    cx.x[10] = 0;
                 }
                 _ => {
                     println!("Unknown syscall: {}", syscall_id);

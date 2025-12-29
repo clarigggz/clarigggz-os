@@ -4,6 +4,7 @@ use super::page_table::{PageTableEntry, PTEFlags};
 use super::address::{PhysPageNum, VirtPageNum, VirtAddr, PhysAddr};
 use super::frame_allocator::{frame_alloc, frame_dealloc};
 use alloc::vec::Vec;
+use alloc::vec;
 
 pub struct PageTable {
     root_ppn: PhysPageNum,
