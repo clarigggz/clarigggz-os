@@ -2,8 +2,6 @@
 
 use super::context::TaskContext;
 use crate::mm::MemorySet;
-use alloc::sync::Arc;
-use spin::Mutex;
 
 #[derive(Copy, Clone, PartialEq)]
 pub enum TaskStatus {

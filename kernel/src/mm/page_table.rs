@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MPL-2.0
 
-use super::address::{PhysPageNum, VirtPageNum};
+use super::address::PhysPageNum;
 use bitflags::*;
 
 bitflags! {
