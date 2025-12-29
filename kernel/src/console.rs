@@ -1,29 +1,20 @@
 use core::fmt;
+use drivers::Ns16550a;
+use hal::Uart;
+use lazy_static::lazy_static;
+use spin::Mutex;
 
-pub struct Console;
-
-impl Console {
-    pub fn write_byte(&self, byte: u8) {
-        let uart = 0x4000_0000 as *mut u8;
-        unsafe {
-            uart.write_volatile(byte);
-        }
-    }
-}
-
-impl fmt::Write for Console {
-    fn write_str(&mut self, s: &str) -> fmt::Result {
-        for byte in s.bytes() {
-            self.write_byte(byte);
-        }
-        Ok(())
-    }
+lazy_static! {
+    pub static ref UART: Mutex<Ns16550a> = {
+        let uart = Ns16550a::new(0x1000_0000);
+        uart.init();
+        Mutex::new(uart)
+    };
 }
 
 pub fn print(args: fmt::Arguments) {
     use core::fmt::Write;
-    let mut console = Console;
-    console.write_fmt(args).unwrap();
+    UART.lock().write_fmt(args).unwrap();
 }
 
 #[macro_export]

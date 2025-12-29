@@ -3,6 +3,7 @@
 #![no_std]
 
 pub trait Uart {
+    fn init(&self);
     fn write_byte(&self, byte: u8);
     fn read_byte(&self) -> Option<u8>;
 }

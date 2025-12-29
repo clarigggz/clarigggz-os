@@ -16,3 +16,11 @@ pub fn syscall(id: usize, args: [usize; 3]) -> usize {
     }
     ret
 }
+
+pub fn ipc_send(to: u64, data: &[u8]) -> usize {
+    syscall(1, [to as usize, data.as_ptr() as usize, data.len()])
+}
+
+pub fn ipc_recv(to: u64) -> usize {
+    syscall(2, [to as usize, 0, 0])
+}
