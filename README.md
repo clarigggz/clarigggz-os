@@ -1,27 +1,25 @@
-# Clarigggz OS
+# Clarigggz OS (V2)
 
-A microkernel-based operating system for the Clarigggz AR platform.
+Strategic Pivot: Pragmatic Sovereignty.
 
 ## Architecture
 
-- **Kernel**: Core microkernel (MPL-2.0). Handles scheduling, memory management, and IPC.
-- **HAL**: Hardware Abstraction Layer (Apache-2.0). Defines traits for hardware components.
-- **Drivers**: Userspace/Kernel drivers (Apache-2.0). Implements HAL traits for specific hardware.
-- **Userland**: System services and applications (Apache-2.0).
-  - `lib-abi`: System call interface.
-  - `init`: The first userspace process.
-  - `vfs`: Virtual File System service.
+- **Kernel**: Standard Linux 6.x (Bianbu/SpacemiT fork). Stripped to absolute minimum.
+- **Userland**: Deleted. No Systemd. No GNU Utils. No Bash.
+- **PID 1**: The [Clarigggz Engine](../clarigggz-engine) is the init process. It owns the hardware directly.
 
-## Building
+## Strategy
 
-Requires Rust 2024 and the `riscv64gc-unknown-none-elf` target.
+We utilize the vendor-provided Linux Kernel (`linux-k1x`) to leverage the existing driver ecosystem (ISP, GPU, PMIC) while maintaining a minimal, high-performance footprint.
 
-```bash
-cargo build --target riscv64gc-unknown-none-elf
-```
+## Build System
 
-## Licensing
+- **Toolchain**: Buildroot / Yocto (Targeting SpacemiT K1).
+- **Payload**: The Rust Engine compiled as the sole userspace binary.
 
-- Kernel: [MPL-2.0](LICENSE-MPL)
-- HAL, Drivers, Userland, Tooling: [Apache-2.0](LICENSE-APACHE)
-- SDK: [MIT](LICENSE-MIT)
+## Optimization Targets
+
+- **Boot Time**: <2 seconds.
+- **Display**: Direct DRM/KMS.
+- **Camera**: V4L2 integration.
+- **Vector**: RVV 1.0 (X60 Cores).
