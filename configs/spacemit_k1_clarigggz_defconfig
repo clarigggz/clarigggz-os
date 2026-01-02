@@ -1,0 +1,35 @@
+# Buildroot Configuration for Clarigggz V2 (SpacemiT K1)
+
+BR2_riscv=y
+BR2_riscv_custom=y
+BR2_riscv_64=y
+
+# Toolchain targeting RV64GCV (Vector 1.0)
+BR2_TOOLCHAIN_EXTERNAL=y
+BR2_TOOLCHAIN_EXTERNAL_BOOTLIN=y
+BR2_TOOLCHAIN_EXTERNAL_BOOTLIN_RISCV64_GLIBC_BLEEDING_EDGE=y
+
+# System Configuration
+BR2_TARGET_GENERIC_HOSTNAME="clarigggz"
+BR2_TARGET_GENERIC_ISSUE="Clarigggz OS V2 (SpacemiT K1)"
+BR2_ROOTFS_DEVICE_CREATION_DYNAMIC_DEVTMPFS=y
+
+# The Kill List: No Shell, No Busybox, No Init Scripts
+# BR2_PACKAGE_BUSYBOX is NOT SET
+BR2_INIT_NONE=y
+
+# RootFS: Minimal Ext4 for the SoM
+BR2_TARGET_ROOTFS_EXT2=y
+BR2_TARGET_ROOTFS_EXT2_4=y
+BR2_TARGET_ROOTFS_EXT2_SIZE="128M"
+
+# Linux Kernel: SpacemiT Fork (linux-k1x)
+BR2_LINUX_KERNEL=y
+BR2_LINUX_KERNEL_CUSTOM_TARBALL=y
+BR2_LINUX_KERNEL_CUSTOM_TARBALL_LOCATION="https://github.com/spacemit-com/linux-k1x/archive/refs/tags/v6.1.tar.gz"
+BR2_LINUX_KERNEL_DEFCONFIG="spacemit_k1_defconfig"
+BR2_LINUX_KERNEL_DTS_SUPPORT=y
+BR2_LINUX_KERNEL_INTREE_DTS_NAME="spacemit/k1-bpi-f3"
+
+# Payload Integration: Embed the Clarigggz Engine
+BR2_ROOTFS_POST_BUILD_SCRIPT="board/spacemit/k1/post-build.sh"
